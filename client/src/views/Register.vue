@@ -6,6 +6,8 @@
                 <v-text-field
                     label="Email"
                     placeholder="Email"
+                    :value="registerEmail"
+                    @input="setRegisterEmail"
                 >
                 </v-text-field>
 
@@ -14,17 +16,35 @@
                     placeholder="Password"
                     type="password"
                     autocomplete="new-password"
+                    :value="registerPassword"
+                    @input="setRegisterPassword"
                 >
                 </v-text-field>
+                <v-btn color='green' dark @click="register">
+                    <v-icon class="mr-2">account_circle</v-icon>
+                    Register
+                </v-btn>
             </v-flex>
         </v-layout>
     </v-container>
 </template>
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations, mapActions } from 'vuex';
 export default {
+    computed: {
+        ...mapState('authentication', [
+        'registerEmail',
+        'registerPassword',
+    ]),
+    },
     methods: {
-        ...mapMutations('authentication', ['setRegisterEmail','setRegisterPassword',])
+        ...mapMutations('authentication', [
+        'setRegisterEmail',
+        'setRegisterPassword',
+        ]),
+        ...mapActions('authentication', [
+            'register'
+        ]),
     }
 };
 </script>
